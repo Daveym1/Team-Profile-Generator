@@ -18,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/Daveym1/Team-Profile-Generator/issues"
   },
-  "homepage": "https://github.com/Daveym1/Team-Profile-Generator#readme"
+  "homepage": "https://github.com/Daveym1/Team-Profile-Generator#readme",
+  "devDependencies": {
+    "jest": "^29.4.1",
+    "jest-cli": "^29.4.1"
+  },
+  "dependencies": {
+    "inquirer": "^6.3.1"
+  }
 }
