@@ -49,32 +49,94 @@ inquirer
     );
     teamMembers.push(manager);
     console.log(teamMembers);
+    addTeamMembers();
   });
 
-// Adding prompts for engineers
+// Adding prompts for team members
 
-// inquirer.prompt([
-//   {
-//     type: "input",
-//     name: "engineerName",
-//     message: "Name?",
-//   },
-//   {
-//     type: "input",
-//     name: "engineerId",
-//     message: "ID?",
-//   },
-//   {
-//     type: "input",
-//     name: "engineerEmail",
-//     message: "Email address?",
-//   },
-//   {
-//     type: "input",
-//     name: "engineerGithub",
-//     message: "GitHub username?",
-//   },
-// ]);
+function addTeamMembers() {
+  inquirer
+    .prompt({
+      type: "list",
+      name: "newTeamMember",
+      message: "Do you want to add another team member?",
+      choices: ["Add an engineer", "Add an intern", "Finish building team"],
+    })
+
+    .then((answers) => {
+      if (answers.newTeamMember === "Add an engineer") {
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              name: "engineerName",
+              message: "Name?",
+            },
+            {
+              type: "input",
+              name: "engineerId",
+              message: "ID?",
+            },
+            {
+              type: "input",
+              name: "engineerEmail",
+              message: "Email address?",
+            },
+            {
+              type: "input",
+              name: "engineerGithub",
+              message: "GitHub username?",
+            },
+          ])
+          .then((engineerAnswers) => {
+            const engineer = new Engineer(
+              engineerAnswers.engineerName,
+              engineerAnswers.engineerId,
+              engineerAnswers.engineerEmail,
+              engineerAnswers.engineerGithub
+            );
+            teamMembers.push(engineer);
+            console.log(teamMembers);
+            addTeamMembers();
+          });
+      } else if (answers.newTeamMember === "Add an intern") {
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              name: "internName",
+              message: "Name?",
+            },
+            {
+              type: "input",
+              name: "internId",
+              message: "ID?",
+            },
+            {
+              type: "input",
+              name: "internEmail",
+              message: "Email?",
+            },
+            {
+              type: "input",
+              name: "internSchool",
+              message: "School?",
+            },
+          ])
+          .then((internAnswers) => {
+            const intern = new Intern(
+              internAnswers.internName,
+              internAnswers.internId,
+              internAnswers.internEmail,
+              internAnswers.internSchool
+            );
+            teamMembers.push(intern);
+            console.log(teamMembers);
+            addTeamMembers();
+          });
+      }
+    });
+}
 
 // // Adding prompts for interns
 
