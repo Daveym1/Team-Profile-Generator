@@ -63,6 +63,8 @@ function addTeamMembers() {
       choices: ["Add an engineer", "Add an intern", "Finish building team"],
     })
 
+    //depending on what role was chosen, relevant questions will be asked
+
     .then((answers) => {
       if (answers.newTeamMember === "Add an engineer") {
         inquirer
@@ -135,30 +137,13 @@ function addTeamMembers() {
             addTeamMembers();
           });
       }
+      //once all team members have been added, this else statement checks to see if the output directory needs to be created and creates it.
+      else {
+        if (!fs.existsSync(OUTPUT_DIR)) {
+          fs.mkdirSync(OUTPUT_DIR);
+        }
+        // uses the answers from the teamMembers array to render the page
+        fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+      }
     });
 }
-
-// // Adding prompts for interns
-
-// inquirer.prompt([
-//   {
-//     type: "input",
-//     name: "internName",
-//     message: "What is the intern's name?",
-//   },
-//   {
-//     type: "input",
-//     name: "internId",
-//     message: "What is the intern's ID?",
-//   },
-//   {
-//     type: "input",
-//     name: "internEmail",
-//     message: "What is the intern's email?",
-//   },
-//   {
-//     type: "input",
-//     name: "internSchool",
-//     message: "What is the intern's school?",
-//   },
-// ]);
